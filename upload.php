@@ -6,7 +6,7 @@
 --	File: upload.php
 --	Desc: Handles clientside of video upload.
 --
---	Modified: 2026/02/27 2:05 PM
+--	Modified: 2026/02/27 5:00 PM
 --	Created: 2026/02/26 3:31 PM
 --	Authors: The Kumor
 -- 
@@ -18,7 +18,8 @@
 	<title>Upload Tool</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="upload.css">
+	<link rel="stylesheet" href="styles/common.css">
+	<link rel="stylesheet" href="styles/upload.css">
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

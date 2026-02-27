@@ -1,0 +1,32 @@
+/* ================================================
+** 
+**	Project: UploadTool
+**
+**	File: styles/common.css
+**	Desc: Styles shared between pages.
+**
+**	Modified: 2026/02/27 5:05 PM
+**	Created: 2026/02/27 4:59 PM
+**	Authors: The Kumor
+** 
+================================================ */
+
+html {
+	background-color: #101015;
+	color: white;
+
+	font-family: "Outfit", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400; /* Regular */
+	font-style: normal;
+
+	text-align: center;
+}
+
+a {
+	color: lightpink;
+}
+
+a:active {
+	color: lightblue;
+}
