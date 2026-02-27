@@ -6,7 +6,7 @@
 --	Desc: Main HTML file for the Upload Tool web
 --	interface.
 --
---	Modified: 2026/02/27 9:41 AM
+--	Modified: 2026/02/27 2:05 PM
 --	Created: 2026/01/06 6:55 PM
 --	Authors: The Kumor
 -- 
@@ -22,7 +22,7 @@ include("search.php");
 	<title>Upload Tool</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="main.css">
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

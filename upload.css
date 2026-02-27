@@ -1,0 +1,53 @@
+/* ================================================
+** 
+**	Project: UploadTool
+**
+**	File: upload.css
+**	Desc: Styles for upload page.
+**
+**	Modified: 2026/02/27 2:04 PM
+**	Created: 2026/02/27 2:04 PM
+**	Authors: The Kumor
+** 
+================================================ */
+
+html {
+	background-color: white;
+	color: black;
+
+	font-family: "Outfit", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400; /* Regular */
+	font-style: normal;
+}
+
+.grid-container {
+	display: grid;
+	grid-template-columns: 1fr 2fr 1fr;
+	grid-template-rows: 1fr;
+	gap: 10px 20px;
+	align-items: center;
+	padding-top: 12%;
+}
+
+#form-container input{
+	width: 100%;
+	padding: 5px;
+	box-sizing: border-box;
+}
+
+#form-container select{
+	width: 50%;
+	padding: 5px;
+	box-sizing: border-box;
+}
+
+#form-container button {
+	grid-column: 2 / 3;
+	padding: 8px 48px;
+	margin: 20px;
+}
+
+.send-form {
+	text-align: left;
+}

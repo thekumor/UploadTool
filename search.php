@@ -6,7 +6,7 @@
 //	File: search.php
 //	Desc: Handles searching for videos.
 // 
-//	Modified: 2026/02/27 9:52 AM
+//	Modified: 2026/02/27 2:28 PM
 //	Created: 2026/02/27 8:36 AM
 //	Authors: The Kumor
 // 
@@ -14,14 +14,14 @@
 
 function GetVideoList()
 {
-	$items = scandir(__DIR__ . "\\videos");
+	$items = scandir("videos");
 
 	for ($i = 0; $i < count($items); $i++) {
 		$folder = $items[$i];
 		if (is_dir($folder))
 			continue;
 
-		$json = file_get_contents(__DIR__ . "\\videos\\" . $folder . "\\" . $folder . ".json");
+		$json = file_get_contents("videos\\" . $folder . "\\" . $folder . ".json");
 		if (!$json)
 			continue;
 
@@ -41,11 +41,11 @@ function GetCurrentVideoData()
 		if (!isset($attr))
 			return;
 
-		$folder = __DIR__ . "\\videos\\" . $attr;
+		$folder = "videos\\" . $attr;
 		if (!is_dir($folder))
 			return;
 
-		$json = file_get_contents(__DIR__ . "\\videos\\" . $attr . "\\" . $attr . ".json");
+		$json = file_get_contents("videos\\" . $attr . "\\" . $attr . ".json");
 		if (!$json)
 			return;
 
@@ -76,7 +76,7 @@ function GetCurrentVideoFile()
 	$json = GetCurrentVideoData();
 	if ($json == "") return;
 	
-	$file = __DIR__ . "\\videos\\" . $_GET["a"] . "\\" . $_GET["a"] . ".mp4";
+	$file = "videos\\" . $_GET["a"] . "\\" . $_GET["a"] . ".mp4";
 
 	echo "<video width=\"640\" height=\"480\" controls><source src=\"" . $file . "\" type=\"video/mp4\">Your browser does not support the video tag.</video>";
 }
