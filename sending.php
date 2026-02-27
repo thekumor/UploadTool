@@ -6,7 +6,7 @@
 //	File: sending.php
 //	Desc: Handles file uploads.
 // 
-//	Modified: 2026/02/27 2:27 PM
+//	Modified: 2026/02/27 4:00 PM
 //	Created: 2026/02/26 4:20 PM
 //	Authors: The Kumor
 // 
@@ -28,13 +28,15 @@ if (isset($_FILES["video-file"]) && $_FILES["video-file"]["error"] == UPLOAD_ERR
 	// Note that this has to be .mp4
 	$safeName = str_replace(".mp4", "", $safeName);
 
+	chdir("videos");
 	// If file name is too long, this will cause undefined behavior
-	while (is_dir("videos\\" . $safeName))
+	while (is_dir($safeName))
 		$safeName += "_";
 
 	// Save video itself
-	mkdir("videos\\" . $safeName);
-	move_uploaded_file($tmpPath, "videos\\" . $safeName . "\\" . $safeName . ".mp4");
+	mkdir($safeName);
+	chdir($safeName);
+	move_uploaded_file($tmpPath, $safeName . ".mp4");
 
 	$entry = [
 		"title" => $name,
@@ -45,7 +47,7 @@ if (isset($_FILES["video-file"]) && $_FILES["video-file"]["error"] == UPLOAD_ERR
 
 	// Save video data
 	$json = json_encode($entry, JSON_PRETTY_PRINT);
-	file_put_contents("videos\\" . $safeName . "\\" . $safeName . ".json", $json);
+	file_put_contents($safeName . ".json", $json);
 } else {
 	echo "Critical fail";
 }

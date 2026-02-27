@@ -6,7 +6,7 @@
 //	File: search.php
 //	Desc: Handles searching for videos.
 // 
-//	Modified: 2026/02/27 2:28 PM
+//	Modified: 2026/02/27 4:00 PM
 //	Created: 2026/02/27 8:36 AM
 //	Authors: The Kumor
 // 
@@ -15,13 +15,16 @@
 function GetVideoList()
 {
 	$items = scandir("videos");
+	chdir("videos");
 
 	for ($i = 0; $i < count($items); $i++) {
 		$folder = $items[$i];
-		if (is_dir($folder))
+
+		if (!is_dir($folder) || $folder == "." || $folder == "..")
 			continue;
 
-		$json = file_get_contents("videos\\" . $folder . "\\" . $folder . ".json");
+		chdir($folder);
+		$json = file_get_contents($folder . ".json");
 		if (!$json)
 			continue;
 
@@ -29,7 +32,10 @@ function GetVideoList()
 		//$attr = hash("sha256", $folder);
 		$attr = $folder;
 		echo "<a href=\"index.php?a=" . $attr . "\">" . $json->title . "</a><br>";
+		chdir("..");
 	}
+
+	chdir("..");
 }
 
 function GetCurrentVideoData()
@@ -41,17 +47,19 @@ function GetCurrentVideoData()
 		if (!isset($attr))
 			return;
 
-		$folder = "videos\\" . $attr;
+		chdir("videos");
+		$folder = $attr;
 		if (!is_dir($folder))
 			return;
 
-		$json = file_get_contents("videos\\" . $attr . "\\" . $attr . ".json");
+		chdir($folder);
+		$json = file_get_contents($attr . ".json");
 		if (!$json)
 			return;
 
+		chdir("../..");
 		$json = json_decode($json);
 	}
-
 	return $json;
 }
 
@@ -75,9 +83,12 @@ function GetCurrentVideoFile()
 {
 	$json = GetCurrentVideoData();
 	if ($json == "") return;
-	
-	$file = "videos\\" . $_GET["a"] . "\\" . $_GET["a"] . ".mp4";
 
-	echo "<video width=\"640\" height=\"480\" controls><source src=\"" . $file . "\" type=\"video/mp4\">Your browser does not support the video tag.</video>";
+	chdir("videos");
+	chdir($_GET["a"]);
+	$file = $_GET["a"] . ".mp4";
+
+	echo "<video width=\"640\" height=\"480\" controls><source src=\"videos\\" . $_GET["a"] . "\\" . $file . "\" type=\"video/mp4\">Your browser does not support the video tag.</video>";
+	chdir("../..");
 }
 ?>
