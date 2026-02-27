@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <!-- ================================================
 -- 
 --	Project: UploadTool
@@ -7,11 +6,15 @@
 --	Desc: Main HTML file for the Upload Tool web
 --	interface.
 --
---	Modified: 2026/02/26 4:30 PM
+--	Modified: 2026/02/27 9:41 AM
 --	Created: 2026/01/06 6:55 PM
 --	Authors: The Kumor
 -- 
 -- ================================================ -->
+
+<?php
+include("search.php");
+?>
 
 <html lang="en">
 
@@ -29,7 +32,9 @@
 <body>
 	<div class="grid-container">
 		<div class="grid-element">
-			<h1>Osaka kocham cie</h1>
+			<?php
+			GetCurrentVideoTitle();
+			?>
 		</div>
 
 		<div class="grid-element">
@@ -37,18 +42,21 @@
 		</div>
 
 		<div class="grid-element">
-			<video width="640" height="480" controls>
-				<source src="videos/1/osaka_lately.mp4" type="video/mp4">
-				Your browser does not support the video tag.
-			</video>
+			<?php
+			GetCurrentVideoFile();
+			?>
 		</div>
 
 		<div class="grid-element">
-			<h1>...</h1>
+			<?php
+			GetVideoList();
+			?>
 		</div>
 
 		<div class="grid-element" id="description">
-			<span>Kocham Osake nad zycie.</span>
+			<?php
+			GetCurrentVideoDescription();
+			?>
 		</div>
 
 		<div class="grid-element" id="upload">
