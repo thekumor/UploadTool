@@ -6,7 +6,7 @@
 //	File: search.php
 //	Desc: Handles searching for videos.
 // 
-//	Modified: 2026/02/27 4:00 PM
+//	Modified: 2026/02/28 6:05 PM
 //	Created: 2026/02/27 8:36 AM
 //	Authors: The Kumor
 // 
@@ -26,9 +26,19 @@ function GetVideoList()
 		chdir($folder);
 		$json = file_get_contents($folder . ".json");
 		if (!$json)
+		{
+			chdir("..");
 			continue;
+		}
 
 		$json = json_decode($json);
+		
+		if ($json->visibility != "public")
+		{
+			chdir("..");
+			continue;
+		}
+		
 		//$attr = hash("sha256", $folder);
 		$attr = $folder;
 		echo "<a href=\"index.php?a=" . $attr . "\">" . $json->title . "</a><br>";
@@ -45,20 +55,23 @@ function GetCurrentVideoData()
 	if (isset($_GET["a"])) {
 		$attr = $_GET["a"];
 		if (!isset($attr))
-			return;
+			return "";
 
 		chdir("videos");
 		$folder = $attr;
 		if (!is_dir($folder))
-			return;
+		{
+			chdir("..");
+			return "";
+		}
 
 		chdir($folder);
+		
 		$json = file_get_contents($attr . ".json");
-		if (!$json)
-			return;
+		if ($json)
+			$json = json_decode($json);
 
 		chdir("../..");
-		$json = json_decode($json);
 	}
 	return $json;
 }
@@ -66,7 +79,7 @@ function GetCurrentVideoData()
 function GetCurrentVideoTitle()
 {
 	$json = GetCurrentVideoData();
-	if ($json == "") return;
+	if ($json == "") return "";
 
 	echo "<h1>" . $json->title . "</h1>";
 }
@@ -74,7 +87,7 @@ function GetCurrentVideoTitle()
 function GetCurrentVideoDescription()
 {
 	$json = GetCurrentVideoData();
-	if ($json == "") return;
+	if ($json == "") return "";
 
 	echo "<span>" . $json->description . "</span>";
 }
@@ -82,7 +95,7 @@ function GetCurrentVideoDescription()
 function GetCurrentVideoFile()
 {
 	$json = GetCurrentVideoData();
-	if ($json == "") return;
+	if ($json == "") return "";
 
 	chdir("videos");
 	chdir($_GET["a"]);
