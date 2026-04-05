@@ -6,7 +6,7 @@
 //	File: sending.php
 //	Desc: Handles file uploads.
 // 
-//	Modified: 2026/02/27 4:00 PM
+//	Modified: 2026/04/05 5:35 PM
 //	Created: 2026/02/26 4:20 PM
 //	Authors: The Kumor
 // 
@@ -16,7 +16,10 @@ $name = $_POST["video-name"] ?? "not set";
 $description = $_POST["video-desc"] ?? "not set";
 $visibility = $_POST["video-visibility"] ?? "public";
 
+//phpinfo();
+
 if (isset($_FILES["video-file"]) && $_FILES["video-file"]["error"] == UPLOAD_ERR_OK) {
+//	header("Location: https://google.com");
 	$tmpPath = $_FILES["video-file"]["tmp_name"];
 	$orgName = $_FILES["video-file"]["name"];
 	$size = $_FILES["video-file"]["size"];
@@ -34,6 +37,7 @@ if (isset($_FILES["video-file"]) && $_FILES["video-file"]["error"] == UPLOAD_ERR
 		$safeName += "_";
 
 	// Save video itself
+	//echo getcwd();
 	mkdir($safeName);
 	chdir($safeName);
 	move_uploaded_file($tmpPath, $safeName . ".mp4");
@@ -48,9 +52,9 @@ if (isset($_FILES["video-file"]) && $_FILES["video-file"]["error"] == UPLOAD_ERR
 	// Save video data
 	$json = json_encode($entry, JSON_PRETTY_PRINT);
 	file_put_contents($safeName . ".json", $json);
-} else {
-	echo "Critical fail";
-}
 
-header("Location: index.php");
+	header("Location: index.php?a=" . $safeName);
+} else {
+	echo "Error: " . $_FILES["video-file"]["error"] . ". Max file size: " . ini_get("upload_max_filesize");
+}
 ?>
